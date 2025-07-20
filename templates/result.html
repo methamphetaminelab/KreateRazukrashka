@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Result</title>
+  <style>
+    table { border-collapse: collapse; }
+    table.grid td {
+      width: {{cell_size}}px;
+      height: {{cell_size}}px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: {{cell_size//2}}px;
+      font-family: monospace;
+    }
+    table.legend th, table.legend td {
+      padding: 4px 10px;
+      font-size: 14px;
+      text-align: left;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+    .grid-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .legend-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Result: {{width}}×{{height}}</h1>
+
+  <div class="container">
+    <div class="grid-container">
+      <h2>Fill Grid</h2>
+      <img src="data:image/png;base64,{{png_b64}}" style="image-rendering: pixelated;">
+      <h3>Fill Colors Palette</h3>
+      <table class="legend">
+        <tr><th>№</th><th>Fill Color</th></tr>
+        {{fill_legend|safe}}
+      </table>
+    </div>
+
+    <div class="grid-container">
+      <h2>Original Grid</h2>
+      <table class="grid">
+        {{grid_html|safe}}
+      </table>
+      <h3>Original Colors Palette</h3>
+      <table class="legend">
+        <tr><th>№</th><th>Color</th><th>HEX</th><th>Count</th></tr>
+        {{orig_legend|safe}}
+      </table>
+    </div>
+  </div>
+</body>
+</html>

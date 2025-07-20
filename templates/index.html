@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Paint by Numbers</title>
+</head>
+<body>
+  <h1>Upload Image</h1>
+  <form method="post" enctype="multipart/form-data">
+    <p><input type="file" name="image" required></p>
+    <p>Width: <input name="width" type="number" value="32" required></p>
+    <p>Height: <input name="height" type="number" value="32" required></p>
+    <p>Cell size: <input name="cell_size" type="number" value="20" required></p>
+    <p><button type="submit">Generate</button></p>
+  </form>
+</body>
+</html>
