@@ -18,47 +18,29 @@
       font-size: 14px;
       text-align: left;
     }
-    .container {
-      display: flex;
-      justify-content: space-between;
-    }
-    .grid-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .legend-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
   </style>
 </head>
 <body>
   <h1>Result: {{width}}×{{height}}</h1>
 
-  <div class="container">
-    <div class="grid-container">
-      <h2>Fill Grid</h2>
-      <img src="data:image/png;base64,{{png_b64}}" style="image-rendering: pixelated;">
-      <h3>Fill Colors Palette</h3>
-      <table class="legend">
-        <tr><th>№</th><th>Fill Color</th></tr>
-        {{fill_legend|safe}}
-      </table>
-    </div>
+  <h2>PNG Fill‑Only</h2>
+  <img src="data:image/png;base64,{{png_b64}}" style="image-rendering: pixelated;">
 
-    <div class="grid-container">
-      <h2>Original Grid</h2>
-      <table class="grid">
-        {{grid_html|safe}}
-      </table>
-      <h3>Original Colors Palette</h3>
-      <table class="legend">
-        <tr><th>№</th><th>Color</th><th>HEX</th><th>Count</th></tr>
-        {{orig_legend|safe}}
-      </table>
-    </div>
-  </div>
+  <h2>Original Grid</h2>
+  <table class="grid">
+    {{grid_html|safe}}
+  </table>
+
+  <h2>Original Colors Legend</h2>
+  <table class="legend" cellspacing="0">
+    <tr><th>№</th><th>Color</th><th>HEX</th><th>Count</th></tr>
+    {{orig_legend|safe}}
+  </table>
+
+  <h2>Fill Colors Legend</h2>
+  <table class="legend" cellspacing="0">
+    <tr><th>№</th><th>Fill Color</th></tr>
+    {{fill_legend|safe}}
+  </table>
 </body>
 </html>
