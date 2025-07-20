@@ -2,27 +2,78 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>Креате разукрашка</title>
+  <title>Создать разукрашку</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f4f4; padding: 20px; }
-    .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    h1 { text-align: center; color: #333; }
-    form p { margin: 10px 0; }
-    input[type=file] { border: 1px solid #ccc; padding: 6px; width: 100%; }
-    input[type=number] { width: 80px; }
-    button { background: #4363d8; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
-    button:hover { background: #3651a3; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin: 40px 0 20px;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    form p {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      color: #555;
+      margin-bottom: 6px;
+    }
+    input[type="file"],
+    input[type="number"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      background: #4363d8;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    button:hover {
+      background: #3651a3;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Креате разукрашка</h1>
-    <form action="/generate" method="post" enctype="multipart/form-data">
-      <p>Изображение: <input type="file" name="image" required></p>
-      <p>Ширина:<input name="width" type="number" value="32" required> Высота:<input name="height" type="number" value="32" required></p>
-      <p>Размер клетки:<input name="cell_size" type="number" value="20" required></p>
-      <p><button type="submit">Сгенерировать</button></p>
-    </form>
-  </div>
+  <h1>Создать разукрашку</h1>
+  <form action="/generate" method="post" enctype="multipart/form-data">
+    <p>
+      <label for="image">Изображение:</label>
+      <input id="image" type="file" name="image" required>
+    </p>
+    <p>
+      <label for="width">Ширина (px):</label>
+      <input id="width" name="width" type="number" value="32" min="1" required>
+    </p>
+    <p>
+      <label for="height">Высота (px):</label>
+      <input id="height" name="height" type="number" value="32" min="1" required>
+    </p>
+    <p>
+      <label for="cell_size">Размер клетки (px):</label>
+      <input id="cell_size" name="cell_size" type="number" value="20" min="1" required>
+    </p>
+    <button type="submit">Сгенерировать</button>
+  </form>
 </body>
 </html>

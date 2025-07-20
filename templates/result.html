@@ -4,18 +4,138 @@
   <meta charset="utf-8">
   <title>Результат</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f4f4; padding: 20px; }
-    .section { background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 30px; }
-    table { border-collapse: collapse; }
-    table.grid td { width: {{cell_size}}px; height: {{cell_size}}px; border: 1px solid #ddd; text-align: center; vertical-align: middle; font-family: monospace; font-size: {{cell_size//2}}px; }
-    table.legend th, table.legend td { border: 1px solid #ddd; padding: 6px 10px; font-size: 14px; text-align: left; }
-    h1, h2, h3 { color: #333; margin-bottom: 10px; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+      margin: 0 0 20px;
+      text-align: center;
+    }
+    section {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin: 0 0 15px;
+      color: #444;
+      font-size: 1.2em;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+    img.fill-preview {
+      display: block;
+      margin-bottom: 15px;
+      image-rendering: pixelated;
+    }
+    table.grid {
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+    table.grid td {
+      width: {{cell_size}}px;
+      height: {{cell_size}}px;
+      border: 1px solid #ddd;
+      text-align: center;
+      vertical-align: middle;
+      font-family: monospace;
+      font-size: {{cell_size//2}}px;
+    }
+    table.legend {
+      border-collapse: collapse;
+      margin-bottom: 15px;
+      width: auto;
+    }
+    table.legend th,
+    table.legend td {
+      border: 1px solid #ddd;
+      padding: 6px 10px;
+      font-size: 14px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    #copy_container {
+      margin-top: 15px;
+    }
+    #copy_mode_buttons button {
+      margin-right: 8px;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      background: #f0f0f0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #copy_mode_buttons button.copy_mode_active {
+      background: #4363d8;
+      color: #fff;
+      border-color: #4363d8;
+    }
+    #copy_code_list {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+    }
+    #copy_code_list li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .copy_li_div_button {
+      flex-shrink: 0;
+    }
+    .copy_li_div_text {
+      flex: 1;
+      overflow-x: auto;
+      white-space: nowrap;
+      font-family: monospace;
+      font-size: 13px;
+      padding: 4px 8px;
+      background: #fafafa;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+    .copy_li_div_button button {
+      padding: 4px 8px;
+      background: #4363d8;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+
   <h1>Результат: {{width}}×{{height}}</h1>
 
-  <div class="section">
+  <section>
+    <h2>Fill Grid</h2>
+    <img class="fill-preview"
+         src="data:image/png;base64,{{png_b64_large}}"
+         alt="Fill Grid Preview">
+  </section>
+
+  <section>
+    <h2>Fill Palette</h2>
+    <table class="legend">
+      <tr><th>№</th><th>Цвет</th></tr>
+      {% for item in legend_fill %}
+      <tr>
+        <td>{{item.num}}</td>
+        <td style="background:{{item.hex}}; width:20px;"></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </section>
+
+  <section>
     <h2>Original Grid</h2>
     <table class="grid">
       {% for row in grid_rows %}
@@ -26,25 +146,73 @@
       </tr>
       {% endfor %}
     </table>
-    <h3>Original Palette</h3>
-    <table class="legend">
-      <tr><th>№</th><th>Color</th><th>HEX</th><th>Count</th></tr>
-      {% for item in legend_real %}
-      <tr><td>{{item.num}}</td><td style="background:{{item.hex}}; width:20px;"></td><td>{{item.hex}}</td><td>{{item.count}}</td></tr>
-      {% endfor %}
-    </table>
-  </div>
+  </section>
 
-  <div class="section">
-    <h2>Fill Grid</h2>
-    <img src="data:image/png;base64,{{png_b64}}" style="image-rendering: pixelated;">
-    <h3>Fill Palette</h3>
+  <section>
+    <h2>Original Palette</h2>
     <table class="legend">
-      <tr><th>№</th><th>Color</th></tr>
-      {% for item in legend_fill %}
-      <tr><td>{{item.num}}</td><td style="background:{{item.hex}}; width:20px;"></td></tr>
+      <tr><th>№</th><th>Цвет</th><th>HEX</th><th>Количество</th></tr>
+      {% for item in legend_real %}
+      <tr>
+        <td>{{item.num}}</td>
+        <td style="background:{{item.hex}}; width:20px;"></td>
+        <td>{{item.hex}}</td>
+        <td>{{item.count}}</td>
+      </tr>
       {% endfor %}
     </table>
-  </div>
+  </section>
+
+  <section>
+    <h2>Код для MC Paint</h2>
+    <div id="copy_container" hidden>
+      <div id="copy_mode_buttons">
+        <button class="copy_mode_active"
+                onclick="click_copy_mode_button(this,'survival')">
+          Survival
+        </button>
+        <button onclick="click_copy_mode_button(this,'cheats_nbt')">
+          Cheats NBT
+        </button>
+        <button onclick="click_copy_mode_button(this,'cheats_components')">
+          Cheats Components
+        </button>
+      </div>
+      <ul id="copy_code_list"></ul>
+    </div>
+  </section>
+
+  <canvas id="scene_canvas_ink"
+          width="{{width}}" height="{{height}}"
+          style="display:none;"></canvas>
+
+  <script>var block_width=1,block_height=1;</script>
+  <script src="/static/scripts/base64ArrayBuffer.js"></script>
+  <script src="/static/scripts/base64_helpers.js"></script>
+  <script src="/static/scripts/copy_list.js"></script>
+  <script src="/static/scripts/mcpaint_image.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      const img = new Image();
+      img.src = 'data:image/png;base64,{{png_b64_small}}';
+      img.onload = ()=>{
+        const c = document.getElementById('scene_canvas_ink'),
+              ctx = c.getContext('2d');
+        c.width = img.width; c.height = img.height;
+        ctx.drawImage(img,0,0);
+        for(let y=0; y<c.height; y++){
+          for(let x=0; x<c.width; x++){
+            const p = ctx.getImageData(x,y,1,1);
+            ctx.putImageData(quantise_ImageData(p), x, y);
+          }
+        }
+        calculate_mcppf1_header();
+        calculate_mcppf1_body();
+        update_copy_list();
+        document.getElementById('copy_container').hidden = false;
+      };
+    });
+  </script>
+
 </body>
 </html>
