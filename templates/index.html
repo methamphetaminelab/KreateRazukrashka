@@ -1,17 +1,28 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>KreateRazukrashka</title>
+  <title>Раскраска по номерам</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f4f4; padding: 20px; }
+    .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #333; }
+    form p { margin: 10px 0; }
+    input[type=file] { border: 1px solid #ccc; padding: 6px; width: 100%; }
+    input[type=number] { width: 80px; }
+    button { background: #4363d8; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #3651a3; }
+  </style>
 </head>
 <body>
-  <h1>Upload Image</h1>
-  <form method="post" enctype="multipart/form-data">
-    <p><input type="file" name="image" required></p>
-    <p>Width: <input name="width" type="number" value="32" required></p>
-    <p>Height: <input name="height" type="number" value="32" required></p>
-    <p>Cell size: <input name="cell_size" type="number" value="20" required></p>
-    <p><button type="submit">Generate</button></p>
-  </form>
+  <div class="container">
+    <h1>Раскраска по номерам</h1>
+    <form action="/generate" method="post" enctype="multipart/form-data">
+      <p>Изображение: <input type="file" name="image" required></p>
+      <p>Ширина:<input name="width" type="number" value="32" required> Высота:<input name="height" type="number" value="32" required></p>
+      <p>Размер клетки:<input name="cell_size" type="number" value="20" required></p>
+      <p><button type="submit">Сгенерировать</button></p>
+    </form>
+  </div>
 </body>
 </html>
