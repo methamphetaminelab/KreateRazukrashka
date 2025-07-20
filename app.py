@@ -6,7 +6,6 @@ import base64
 
 app = Flask(__name__)
 
-# Палитра заливки PNG
 DISTINCT_COLORS = [
     '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0',
     '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8',
@@ -40,7 +39,6 @@ def generate():
             color_map[c] = nxt; nxt += 1
         pixel_nums.append(color_map[c])
 
-    # PNG fill-only
     out = Image.new('RGB', (width * cell_size, height * cell_size))
     draw = ImageDraw.Draw(out)
     for y in range(height):
@@ -54,7 +52,6 @@ def generate():
     out.save(buf, 'PNG')
     png_b64 = base64.b64encode(buf.getvalue()).decode()
 
-    # Подготовка данных для шаблона
     grid_rows = []
     idx = 0
     for _ in range(height):
